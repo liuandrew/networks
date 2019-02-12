@@ -84,6 +84,53 @@ class SimpleSpatialGraph(nx.Graph):
 
 
 
+class SpatialGraph(nx.Graph):
+  '''
+  Generate a spatial graph such that every node requires an n-dimensional tuple
+  coordinate
+  Same as SimpleSpatialGraph but requires assignment of node labels
+  params:
+    dimension: spatial dimension of the graph, default is 2
+    size: size of each dimension of the graph. Graph is assumed to start from 
+      [0,0,...], default is [1,1]
+     
+  '''
+  def __init__(self, incoming_graph_data=None, dimension=2, size=[1,1], **attr):
+    super().__init__(incoming_graph_data, **attr)
+    if(len(size) != dimension):
+      raise Exception('Size of the graph does not match its dimension')
+      
+    self.dimension = dimension
+    self.node_count = 0
+    self.node_edges_evaluated = 0
+    self.size = size
+    
+  def add_node(self, n, coordinate=None, **attr):
+    '''
+    Add a node optionally with a specified coordinate. If no coordinate is given,
+    the node will be added with uniform random coordinates in the size of the graph
+    params:
+      coordinate: optional coordinate for the node
+    '''
+    
+    if(coordinate is None):
+      #no coordinate passed, generate one uniformly at random
+      coordinate = []
+      for i in range(self.dimension):
+        coordinate.append(np.random.uniform(0, self.size[i]))
+    else:
+      #check that the coordinate passed matched the size of the graph
+      if(type(coordinate) != list):
+        raise Exception('Missing list coordinate')
+      if(len(coordinate) != self.dimension):
+        raise Exception('Coordinate does not have the same dimensions as the graph')
+    
+    super().add_node(n, coordinate=coordinate, **attr)
+    self.node_count += 1
+
+
+
+
 def add_normal_nodes(G, n):
   '''
   Add a normal of nodes with normally distributed fitness function to given graph
@@ -221,7 +268,7 @@ def graph_degree_distribution_subplot(G, sub1, sub2, sub3, alpha=None):
   
   plt.subplot(sub1, sub2, sub3)
   sns.distplot(degrees)
-  
+   
   if(alpha):
     x = np.linspace(0, max(degrees))
     y = np.power(x, -1 * alpha)
