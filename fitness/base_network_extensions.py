@@ -59,7 +59,7 @@ class SimpleSpatialGraph(nx.Graph):
     self.node_edges_evaluated = 0
     self.size = size
     
-  def add_node(self, coordinate=None, **attr):
+  def add_node(self, label=False, coordinate=None, **attr):
     '''
     Add a node optionally with a specified coordinate. If no coordinate is given,
     the node will be added with uniform random coordinates in the size of the graph
@@ -78,8 +78,10 @@ class SimpleSpatialGraph(nx.Graph):
         raise Exception('Missing list coordinate')
       if(len(coordinate) != self.dimension):
         raise Exception('Coordinate does not have the same dimensions as the graph')
-    
-    super().add_node(self.node_count, coordinate=coordinate, **attr)
+    if(not label):
+      super().add_node(self.node_count, coordinate=coordinate, **attr)
+    else:
+      super().add_node(label, coordinate=coordinate, **attr)
     self.node_count += 1
 
 

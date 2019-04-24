@@ -742,15 +742,22 @@ def average_edge_length(G, pbc=True, normalized=True):
 
 
 
-def edge_distance_centrality(G, pbc=True, normalized=True):
+def edge_distance_centrality(G, pbc=True, normalized=1):
     '''
     Note that this will double count edges, so if summing and taking the average,
         the value will most likely be different than calculating average edge length
     The ratio (+/- %) of these two should actually give a summary number for
         the distribution of edge lengths, or at least the skew of it
+    Normalized:
+        0: no normalization
+        1: normalizes against max size of the network
+        2: normalizes against max distance between nodes ("true size")
+        3: normalizes against average length of edges in network and max size
+        4: normalizes against average length of edges only
     '''
     distances = pbc_distances(G, pbc=pbc)
-    centralities = {}
+    distances = distances + distances.T
+    centralities = {} #centralities[i] (before norm) is the edge length of node(v_i)
 
     max_length = 0
     for dimension in G.size:
@@ -760,22 +767,37 @@ def edge_distance_centrality(G, pbc=True, normalized=True):
             max_length = max_length + dimension ** 2
     max_length = np.sqrt(max_length)
 
+    total_edge_length = 0 #total edge length of entire network
+    num_edges = 0 #number of edges in the entire network
+
     for i in range(G.node_count):
         sum_distances = 0
         for e in G[i]:
-            if(e > i):
-                sum_distances += distances[i][e]
-            else:
-                sum_distances += distances[e][i]
+            sum_distances += distances[i][e]
+            total_edge_length += distances[i][e]
+            num_edges += 1
+
         avg_distance = 0
         if(G.degree[i] == 0):
             avg_distance = 0
         else:
             avg_distance = sum_distances / G.degree[i]
-        if(normalized):
+        if(normalized == 1 or normalized == 3):
             avg_distance = avg_distance / max_length
+
         centralities[i] = avg_distance
-    
+    if(normalized == 3 or normalized == 4):
+        if(num_edges == 0):
+            average_edge_length = 0
+        else:
+            average_edge_length = total_edge_length / num_edges
+
+        for i in range(G.node_count):
+            if(average_edge_length == 0):
+                centralities[i] = 0
+            else:
+                centralities[i] = centralities[i] / average_edge_length
+
     return centralities
 
 
@@ -836,7 +858,7 @@ def average_neighbor_degree_centrality(G, normalized=True):
 
 
 
-def spatial_strength_centrality(G, pbc=True):
+def spatial_strength_centrality(G, pbc=True, normalized=1):
     '''
     centrality that attempts to measure whether spatial or topological effects are dominating
     only uses normalized
@@ -850,14 +872,14 @@ def spatial_strength_centrality(G, pbc=True):
             i.e. maximum possible degree of neighbors in a fully connected network
 
     spatial_strength = 1 / edge_distance * neighbor_degree
-    
+    normalized: based on edge_distances normalization    
     return:
         centralities, average_spatial_strength
     '''
     
     centralities = {
         'average_neighbor_degree': average_neighbor_degree_centrality(G),
-        'edge_distance': edge_distance_centrality(G, pbc=pbc),
+        'edge_distance': edge_distance_centrality(G, pbc=pbc, normalized=normalized),
         'spatial_strength': {}
     }
     spatial_strength = centralities['spatial_strength']
@@ -876,14 +898,16 @@ def spatial_strength_centrality(G, pbc=True):
     
 
 
-def report_spatial_strength_centrality(G, pbc=True, ret=False, graph=True):
-    centralities, average_spatial_strength = spatial_strength_centrality(G, pbc=pbc)
+def report_spatial_strength_centrality(G, pbc=True, ret=False, graph=True, print_result=True,
+    normalized=4):
+    centralities, average_spatial_strength = spatial_strength_centrality(G, pbc=pbc, normalized=normalized)
     c = []
     for i in range(G.node_count):
         c.append(centralities['spatial_strength'][i])
     
     if(graph):
         sns.distplot(c)
-    print('Average Spatial Strength: ' + str(average_spatial_strength))
+    if(print_result):
+        print('Average Spatial Strength: ' + str(average_spatial_strength))
     if(ret):
         return centralities, average_spatial_strength
