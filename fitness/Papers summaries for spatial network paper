@@ -1,0 +1,157 @@
+Papers summaries for spatial network paper
+
+*: spatial network
++: neural
+
+*https://iopscience.iop.org/article/10.1209/epl/i2003-00600-6/meta
+M. Barthélemy
+2003 EDP Sciences
+Vol 63 Num 6
+Crossover from scale-free to spatial networks
+	spatial preferential attachment with distance characterized by finite "interaction range"
+	shows transition from scale-free to "spatial" network, with higher clustering and maximum degree assortativity
+
+*https://iopscience.iop.org/article/10.1088/1742-5468/2005/05/P05003/meta
+Alain Barrat1, Marc Barthélemy2,3 and Alessandro Vespignani2
+Published 10 May 2005 • IOP Publishing Ltd
+Journal of Statistical Mechanics: Theory and Experiment, Volume 2005, May 2005
+The effects of spatial constraints on the evolution of weighted complex networks
+	spatial network model including geographical and topological attributes
+	especially explores air traffic networks
+	(also includes air traffic dataset link if necessary)
+	model of growing weighted networks embedded in space
+	conclusions:
+		spatial constraints force local preferential attachment and hubs connect to hubs
+		centrality fluctuation - hubs are very central, but correlations between space and centrality compete with those with degree
+		higher clustering coefficient, flat assortativity
+
+*https://journals.aps.org/pre/abstract/10.1103/PhysRevE.73.036125
+Paolo Crucitti, Vito Latora, and Sergio Porta
+Phys. Rev. E 73, 036125 – Published 24 March 2006
+Centrality measures in spatial networks of urban streets
+Vol. 73, Iss. 3 — March 2006
+	introductory use of centrality measures (betweenness, closeness, straightness, information) on spatial networks
+	taking into account spatiality in these centrality calculations, to see that they correlate with what we conventionally think of as central in physical space
+
+
+*https://projecteuclid.org/download/pdfview_1/euclid.ss/1294167960
+David J. Aldous and Julian Shun
+Statist. Sci.
+Volume 25, Number 3 (2010), 275-288.
+Connected Spatial Networks over Random Points and a Route-Length Statistic
+	introduction of a spatial network statistic R which calculates the ratio of route length to euclidean length
+	gives an idea of how efficient the network is
+	talks about advantages and disadvantages, tries it on a couple of networks
+	looks a lot like our section on defining spatial strength centrality
+
+
+*https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.056122
+Marián Boguñá, Romualdo Pastor-Satorras, Albert Díaz-Guilera, and Alex Arenas
+Phys. Rev. E 70, 056122 – Published 22 November 2004
+Vol. 70, Iss. 5 — November 2004
+Models of social networks based on social distance attachment
+	treatment of distance in social networks as distance between similarities of people (nodes)
+
+
+==> personal note: come back to this paper!
+*+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003491
+Florian Klimm, Danielle S. Bassett , Jean M. Carlson, Peter J. Mucha
+PLoS Comput Biol 10(3): e1003491
+March 27, 2014
+Resolving Structural Variability in Network Models and the Brain
+	attempts to use 13 network models to probe the roles of physical embedding on brain network growth
+	use various simple and more advanced quantities on the networks to see how well they fit
+	in general, a model used to optimize one statistic doesn't do well on the others, suggesting multiple processes at play
+	*finds that models that take into account physical embeddings seem to produce results most similar to brains
+	-"Here comparing empirical brain data to simplified model networks that have been created to capture some aspect of, for example, neurodevelopmental growth rules [24], neuronal functions [11], or physiological constraints [25] may aid in developing a mechanistic understanding of the brain's network architecture (e.g., [26]–[28]). "
+	- further want to read: 
+		[2] a tutorial in connectome analysis
+		[35] interpretation of rent's rule
+		[39] data for diffusion spectrum
+		[8] conserved and variable architecture of human white matter connectivity
+		[22] graphical models of the human connectome
+		[30] understanding complexity in the brain
+	- note: good for thinking about network statistics to look at
+	- "None of the non-embedded models discussed earlier in this section simultaneously provide a heterogeneous degree distribution, degree assortativity, hierarchical topology, and realistic topological dimensions. Such a “No Free Lunch” rule is perhaps unsurprising, in that a network that is developed to directly obtain one property typically fails to also display a second property. This result suggests that the topological properties that we explore here are in some sense independent from one another. It is, however, important to clarify that the interpretation of our findings in light of the observed correlations between network diagnostic values themselves, estimated over different networks or models (see previous literature, e.g., [97], [98], and results for the current data presented in Figure S4 in the Supplementary Materials), that suggest the need for methods to identify distinguishing properties among networks [56], [99]. The two sets of observations can be brought together by realizing that while classes of networks (e.g., brain networks) might display correlated network diagnostics values, these relationships need not be expected theoretically from any randomly chosen set of networks. Indeed, networks can be segregated into families based on the profile of interdependence between network diagnostic values [100]."
+	-"Future Directions
+	The perspective that we have taken in choosing synthetic network models is one of parsimonious pragmatism. We seek to identify models with simplistic construction rules or growth mechanisms to isolate topological (non-embedded) and physical (embedded) drivers of network topology. One alternative perspective would be to begin with a certain graph topology (for example, an Erdős-Rényi graph), and iteratively rewire edges to maximize or minimize a network diagnostic or set of network diagnostics [25]. However, this approach requires prior hypotheses about which network diagnostics are most relevant for brain network development, a choice that is complicated by the observed correlations between such diagnostics [97]. Another approach is to employ exponential random graph models [16], [19], [104], which provide a means to generate ensembles of networks with a given set of network properties but do not provide a means to isolate mechanistic drivers of those network properties. A third approach is to construct a mechanistic model based on particle-particle collisions, which might serve as a physical analogy to the biological phenomena of neuronal migration through chemical gradients [105], [106]. In each of these cases, a perennial question remains: at what spatial scale should we construct these models to gain the most insight into the relevant biology? Important future directions could include the development of multiscale growth models, enabling us to bridge the scales between neuronal mechanisms and large-scale structure."
+
+*+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000381
+Damien A. Fair  , Alexander L. Cohen , Jonathan D. Power, Nico U. F. Dosenbach, Jessica A. Church, Francis M. Miezin, Bradley L. Schlaggar, Steven E. Petersen 
+PLoS Comput Biol 5(5): e100038
+Functional Brain Networks Develop from a “Local to Distributed” Organization
+May 1, 2009
+	change from children to adults in brain connectivity: children connections tend to favor spatially close, while adults there are much more long range functional connections
+	suggests that a model that is based solely on spatial is not enough to explain a lot of networks (find a road network paper that is similar)
+	youngest studied was about 8 where "small world" properties are already present, suggesting the ability to already do some adult-level processing
+
+
++http://www.jneurosci.org/content/15/2/1463.short
+Analysis of connectivity in the cat cerebral cortex
+JW Scannell, C Blakemore and MP Young
+Journal of Neuroscience 1 February 1995, 15 (2) 1463-1483; DOI: https://doi.org/10.1523/JNEUROSCI.15-02-01463.1995
+	analysis of cat brain, simultaneous display of clustering and high distance edges
+
+http://www.math.ucla.edu/~mason/papers/sarzynska-final.pdf
+Marta Sarzynska  Elizabeth A. Leicht  Gerardo Chowell Mason A. Porter
+Journal of Complex Networks, Volume 4, Issue 3, September 2016, Pages 363–406, https://doi.org/10.1093/comnet/cnv027
+Null models for community detection in spatially embedded, temporal networks
+	in general to determine something like community structure, you have to compare with a null model, and the choice of this affects results heavily
+	paper finds that spatial factors are one such important piece of information
+
+*https://www.pnas.org/content/pnas/108/19/7663.full.pdf
+Paul Expert, Tim S. Evans, Vincent D. Blondel, and Renaud Lambiotte
+PNAS May 10, 2011 108 (19) 7663-7668; https://doi.org/10.1073/pnas.1018962108
+Edited by Kenneth Wachter, University of California, Berkeley, CA, and approved March 22, 2011 (received for review December 20, 2010)
+Uncovering space-independent communities in spatial networks
+	*"Whereas a broad range of models have been specifically developed for spatial networks (21–25), dedicated tools for uncovering useful information from their topology are poorly developed."
+		? what are tools for uncovering useful information from network topology in general? Community detection type methods?
+		A: clustering, other general measures, comparison with null models
+	Uses of community detection:
+		"the identification of functionally related brain regions and of principles leading to global integration and functional segregation (42, 43).""
+	for spatial networks, its hard to differentiate structural features from influences in spatial embedding. Additionally, in a sense both of these can be thought of as coming from a higher-dimensional spatial embedding (e.g. people in a space describing their similarities)
+	community detection works by comparing edges within a "community" (or what you suspect are the communities in the network) with the expected number of edges between them in a null model - hence why the choice of null model is important
+		the NG model just uses a very flat choice of null model, dependent on the degrees of two nodes under consideration
+	a general example - many social networks are highly dedpendent on age. If you build a null model that includes age, then you can start to uncover other interesting relationships
+		=> idea of distilling out information by applying piece-wise filters to networks, can this be done in a more general systematic / procedural way?
+
+
+https://iopscience.iop.org/article/10.1088/1742-5468/2006/01/P01015/fulltext/
+Journal of Statistical Mechanics: Theory and Experiment Volume 2006 number 01
+J. Stat. Mech. (2006) P01015
+doi:10.1088/1742-5468/2006/01/P01015
+Michael T Gastner and M E J Newman
+Published 30 January 2006
+Shape and efficiency in spatial distribution networks
+	studying spatial networks comparing "cost" (total edge length) and route factor (ratio of euclidean to network distances)
+	real world networks tend to have a fairly low route factor without too much cost
+	star networks and MST are extremes and do well in only one factor
+	2 other optimization growth models used, one without explicit consideration of route factor, both leading to realistic looking networks (may or may not require knowledge of where all future nodes will be placed)
+
+
+https://www.nature.com/articles/35004572
+Nature
+Letter | Published: 09 March 2000
+Richard J. Williams & Neo D. Martinez 
+Nature 404, 180–183 (2000) 
+Simple rules yield complex food webs
+	modeling food web as matrix, which can be further represented as a directed graph
+	previous models include random and cascade
+	this introduces a "niche" model, each species on a 1 dimensional line representing their size and which can consume other species within a certain range of a point smaller than them
+	allows for cannibalism, etc. interesting formations
+	with a relatively simple model like this, manages to approximate real data better by ten-fold
+
+
+https://www.tandfonline.com/doi/abs/10.1080/15427951.2008.10129304
+Milan Bradonjić and Aric Hagberg and Allon G. Percus
+Internet Mathematics Volume 5 Issue 3 113-139
+30 Jan 2011
+The Structure of Geographical Threshold Graphs
+	analysis of properties of geographical threshold graphs (clustering, giant component, etc.)
+	overall, rich model that can generate large complex networks and versatile by choice of fitness distribution, threshold and threshold function
+
+
+https://journals.aps.org/pre/pdf/10.1103/PhysRevE.68.036112
+Boguna class of correlated hidden variable networks
+	describes calculations for two vertices degree correlations dependent on P(k | k')
+	hidden 

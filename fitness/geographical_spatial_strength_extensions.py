@@ -228,7 +228,9 @@ Graph the spatial network and plot centralities
 !!
 '''
 
-def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highlight_edges=False, color_points=False, color_bar=False, bounds=False, pbc=True):
+def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, hide_ticks=True, subplot=False,
+  highlight_edges=False, highlight_recent=False, color_points=False, color_bar=False, bounds=False, pbc=True,
+  edge_style=None, ss_title=False, alpha=0.2, linewidth=2):
   '''
   Create a plot showing what a 2D spatial graph looks like, coloring by passed values and sized by degree
   params:
@@ -245,8 +247,11 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
   Y = []
   degrees = []
   scatter_values = []
-  
-  plt.figure(figsize=(16, 16))
+
+  if(subplot):
+    plt.subplot(subplot[0], subplot[1], subplot[2])
+  else:
+    plt.figure(figsize=(16, 16))
   for i in list(G.nodes):
     coordinate = G.nodes[i]['coordinate']
     X.append(coordinate[0])
@@ -255,6 +260,10 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
     if(values):
       scatter_values.append(values[i])
   
+  if(ss_title):
+    _, spatial_strength = report_spatial_strength_centrality(G, pbc=pbc, graph=False,
+      ret=True, normalized=4)
+    plt.title(r'$\langle S \rangle \approx {0:.3f}$'.format(spatial_strength), y=1.02)
   if(graph_edges):
     if(pbc):
         for i in G.edges:
@@ -290,19 +299,19 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
             points = (x1, x2, y1, y2)
 
           if(points):
-            plt.plot(points[0], points[2], alpha=0.2, color='grey')
-            plt.plot(points[1], points[3], alpha=0.2, color='grey')
+            plt.plot(points[0], points[2], alpha=alpha, color='grey')
+            plt.plot(points[1], points[3], alpha=alpha, color='grey')
           else:
             x = (coordinate_i[0], coordinate_j[0])
             y = (coordinate_i[1], coordinate_j[1])
-            plt.plot(x, y, alpha=0.2, color='grey')
+            plt.plot(x, y, alpha=alpha, color='grey', linewidth=linewidth)
     else:
         for i in G.edges:
           coordinate_i = G.nodes[i[0]]['coordinate']
           coordinate_j = G.nodes[i[1]]['coordinate']
           x = (coordinate_i[0], coordinate_j[0])
           y = (coordinate_i[1], coordinate_j[1])
-          plt.plot(x, y, alpha=0.2, color='grey')
+          plt.plot(x, y, alpha=alpha, color='grey', linewidth=linewidth)
 
   if(highlight_edges):
     for i in highlight_edges:
@@ -310,7 +319,7 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
       coordinate_j = G.nodes[i[1]]['coordinate']
       x = (coordinate_i[0], coordinate_j[0])
       y = (coordinate_i[1], coordinate_j[1])
-      plt.plot(x, y, alpha=0.2, color='red')
+      plt.plot(x, y, alpha=alpha, color='red')
 
   if(color_points):
     plt.scatter(X, Y, c=color_points, s=degrees)
@@ -320,7 +329,7 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
   else:
     plt.scatter(X, Y, s=degrees)
     
-  if(highlight_edges):
+  if(highlight_recent):
     node = G.nodes[len(G.nodes) - 1]
     x = [node['coordinate'][0]]
     y = [node['coordinate'][1]]
@@ -331,6 +340,10 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, highli
   else:
     plt.xlim([0, G.size[0]])
     plt.ylim([0, G.size[1]])
+
+  if(hide_ticks):
+    plt.xticks([])
+    plt.yticks([])
     
 
 def plot_centrality_correlation(G, centrality1=False, centrality2=False):
@@ -502,7 +515,7 @@ Analyze graphs in a graphs dictionary based on betas in betas list
 '''
 def analyze_graphs_with_function(func_type, verbose=0, xlabel=False, ylabel=False, num_trials=30, 
                                  subplot=None, betas=None, individual_trials=False, values=False,
-                                invert_betas=True):
+                                invert_betas=True, yticks=None, yrange=None, label=False, graphs=False):
     '''
     Analyze the set of graphs using the given func_type
     params:
@@ -535,19 +548,19 @@ def analyze_graphs_with_function(func_type, verbose=0, xlabel=False, ylabel=Fals
         all_values = values['all_values']
         
     centrality_types = {
-        'degree_assortativity': 'Degree Assortativity',
-       'laplacian_spectrum': '2nd Smallest Eigenvalue, Lambda',
-       'clustering': 'Clustering, C',
-       'geodesic': 'Mean Geodesic Distance, L',
-       'connectance': 'Connectance',
-        'clustering_ratio': 'Clustering Ratio, (C / (N/E^2))',
-        'mean_degree': 'Mean Degree, <k>',
-        'average_edge_length': 'Average Edge Length',
-        'average_spatial_strength': 'Average Spatial Strength'
+        'degree_assortativity': r'Degree assortativity',
+       'laplacian_spectrum': r'2nd Smallest Eigenvalue, Lambda',
+       'clustering': r'Mean local clustering coefficient (C)',
+       'geodesic': r'Mean geodesic distance (L)',
+       'connectance': r'Connectance',
+        'clustering_ratio': r'Clustering Ratio, (C / (N/E^2))',
+        'mean_degree': r'Mean degree, \langle k \rangle',
+        'average_edge_length': r'Mean edge length',
+        'average_spatial_strength': r'Mean spatial strength (S)'
     }
     if(subplot is None):
         plt.figure(figsize=(8, 8))
-    else:
+    elif(type(subplot) == list):
         plt.subplot(subplot[0], subplot[1], subplot[2])
     if(not values):
         for i, beta in enumerate(betas):
@@ -615,15 +628,37 @@ def analyze_graphs_with_function(func_type, verbose=0, xlabel=False, ylabel=Fals
             betas[i] = -betas[i]
         for i in range(len(all_betas)):
             all_betas[i] = -all_betas[i]
-    
-    plt.scatter(betas, all_avg_values, label="mean value")
-    if(individual_trials):
-        plt.scatter(all_betas, all_values, alpha=0.15, label="trial values")
-        plt.legend()
-    plt.xlabel(r'$\beta$', fontsize=14)
-    plt.ylabel(centrality_types[func_type], fontsize=16)
+    if(False):
+        pass
+    if(str(type(subplot)) == "<class 'matplotlib.axes._subplots.AxesSubplot'>"):
+        if(not label):
+            label = 'mean value'
+        subplot.scatter(betas, all_avg_values, label=label)
+        if(individual_trials):
+            subplot.scatter(all_betas, all_values, alpha=0.15, label="trial values")
+            subplot.legend()
+        subplot.set_xlabel(r'$\beta$')
+        subplot.set_ylabel(centrality_types[func_type], labelpad=15)
+        if(yticks):
+            subplot.set_yticks(yticks)
+        if(yrange):
+            subplot.set_ylim(yrange)
+    else:
+        if(not label):
+            label = 'mean_value'
+        plt.scatter(betas, all_avg_values, label=label)
+        if(individual_trials):
+            plt.scatter(all_betas, all_values, alpha=0.15, label="trial values")
+            plt.legend()
+        plt.xlabel(r'$\beta$')
+        plt.ylabel(centrality_types[func_type], labelpad=20)
+        if(yticks):
+            plt.yticks(yticks)
+        if(yrange):
+            plt.ylim(yrange)
     #plt.title('number of trials per beta = %(num_trials)d' % {'num_trials': num_trials})
     return values
+        
         
         
 def plot_graph_character_correlation(centrality1=False, centrality2=False):
@@ -858,7 +893,7 @@ def average_neighbor_degree_centrality(G, normalized=True):
 
 
 
-def spatial_strength_centrality(G, pbc=True, normalized=1):
+def spatial_strength_centrality(G, pbc=True, normalized=4):
     '''
     centrality that attempts to measure whether spatial or topological effects are dominating
     only uses normalized
@@ -884,18 +919,64 @@ def spatial_strength_centrality(G, pbc=True, normalized=1):
     }
     spatial_strength = centralities['spatial_strength']
     total_spatial_strength = 0
+    missed_nodes = 0
     for i in range(G.node_count):
         if(centralities['average_neighbor_degree'][i] == 0):
             spatial_strength[i] = 0
+            missed_nodes += 1
         else:
             spatial_strength[i] = \
                 1 / (centralities['edge_distance'][i] * centralities['average_neighbor_degree'][i])
         total_spatial_strength += spatial_strength[i]
         
-    average_spatial_strength = total_spatial_strength / G.node_count
+    average_spatial_strength = total_spatial_strength / (G.node_count - missed_nodes)
     
     return centralities, average_spatial_strength
     
+
+
+def spatial_strength_centrality2(G, pbc=True, normalized=True, verbose=False):
+  '''
+  calculate spatial strength centrality by dividing each edge distance
+  by its corresponding degree so that we correctly weight the edges
+  '''
+  distances = pbc_distances(G, pbc=pbc)
+  distances = distances + distances.T
+  centralities = {}
+  avg_k = average_degree(G)
+
+  total_edge_length = 0
+  num_edges = 0
+  total_spatial_strength = 0
+
+  for i in range(G.node_count):
+    sum_distances = 0
+    for e in G[i]:
+      sum_distances += distances[i][e] / G.degree(e)
+      total_edge_length += distances[i][e]
+      num_edges += 1
+    avg_distance = 0
+    if(G.degree[i] != 0):
+      avg_distance = sum_distances / G.degree[i]
+
+    centralities[i] = avg_distance
+
+  if(normalized):
+    if(num_edges == 0):
+      avg_edge_length = 0
+    else:
+      avg_edge_length = total_edge_length / num_edges
+
+    for i in range(G.node_count):
+      if(avg_edge_length == 0):
+        centralities[i] = 0
+      else:
+        centralities[i] = centralities[i] / avg_edge_length
+        total_spatial_strength += centralities[i]
+
+  average_spatial_strength = total_spatial_strength / G.node_count
+  return centralities, average_spatial_strength
+
 
 
 def report_spatial_strength_centrality(G, pbc=True, ret=False, graph=True, print_result=True,
@@ -904,7 +985,21 @@ def report_spatial_strength_centrality(G, pbc=True, ret=False, graph=True, print
     c = []
     for i in range(G.node_count):
         c.append(centralities['spatial_strength'][i])
-    
+    if(graph):
+        sns.distplot(c)
+    if(print_result):
+        print('Average Spatial Strength: ' + str(average_spatial_strength))
+    if(ret):
+        return centralities, average_spatial_strength
+
+
+
+def report_spatial_strength_centrality2(G, pbc=True, ret=False, graph=True, print_result=True,
+    normalized=True):
+    centralities, average_spatial_strength = spatial_strength_centrality2(G, pbc=pbc, normalized=normalized)
+    c = []
+    for i in range(G.node_count):
+      c.append(centralities[i])
     if(graph):
         sns.distplot(c)
     if(print_result):

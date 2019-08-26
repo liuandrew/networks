@@ -1,0 +1,86 @@
+Barabasi	
+"In contrast, the power-law tail characterizing P(k) for the studied
+networks indicates that highly connected (large k) vertices have a large chance of occurring,
+dominating the connectivity"
+
+
+
+Barthelemy
+Highly congested points are then signaled by very large values of the BC.
+This is relevant for any type of transportation network where goods and individuals
+travel but also for networks such as the Internet where information packets can
+experience congestion problems at some routers
+	-> is there a way to predict BC based on some characteristics of the original
+		graph model and the position of the node in space?
+	-> more generally, can we predict various centralities of points when space is added?
+
+	"if space does not play a role anymore, such as in scale-free networks" avg BC
+		g(k) ~ k^nu
+	so primarily dictated by the degree
+
+"The fact that the BC is broadly distributed signals the existence
+of a strong heterogeneity of the network in terms of traffic"
+	broadly distributed?
+"Also,
+the absence of a scale in a power law distribution suggests that the importance of
+roads is organized in a hierarchical way"
+	power law -> hierarchical organization?
+"Indeed, in [30, 118], the betweenness centrality
+distribution is peaked (depending on the city either exponentially or according to a
+Gaussian) which signals the existence of a scale and therefore of a finite number of
+congested points in the city."
+
+generally speaking, the barycenter is an important structure for the BC
+	however presence of loops and other interesting structures can modify this
+	-> may be useful to calculate barycenter and consider distances to against
+		BCs
+	-> can the function of barycenter distances against BC tell us about the 
+		structure of the network?
+
+
+Meeting notes
+	- good to start writing to get ideas for what gaps need to be filled
+	- draft should be sim to 168 project, complete but unpolished paper
+	- talked about
+		- other spatial network papers
+			ones his students worked on about RGGs, looking at how dimensions affect certain features
+			idea of dimension normalization 3 + epsilon
+			there are other ideas of configuration type models, eg for DAG
+				these work well as null models
+			maybe not
+		- publications
+			phys E is a good place to submit for my paper
+			there have been papers that are primarily graphs and trying to catalogue various
+				results, the idea being that this can inspire others
+			applied math would be for more rigorous things
+			ofc try to perform rigorous experiments
+			important section is discussion - where you think the paper could go after
+				or like lessons you learned are important for discussion
+
+
+DAG Configuration
+Model -> Configuration, only allow it to occur from lower to higher index
+Multiedges are generally allowed, but appear at O(1/n) so are negligible in large limit
+	-> reconcile by showing expected number of edges between i and j equal to the 
+		probability that two nodes are connected in large limit
+Self edges impossible in DAG
+Note probabilities of topologies being realized are not completely equal since
+	multiplicities will be counted extra times, but still generally useful
+Subtlety -> the definition of the model and implementation through programming
+	are not completely the same and should be noted
+		-> need to show that generation probabilities are fair
+
+==> what is the core feature that truly characterizes the network, how is that
+	added? In the case of the DAG, it wasn't the lack of cycles, but the ordering
+	of the nodes
+In the case of spatial networks, it should indeed be that closer nodes are
+	more likely to connect
+What are some corollaries or effects you expect to see?
+	- hubs are connected to hubs (when non-planar)
+	- generally negative degree assortativity
+	- nodes that are closer to the barycenter are more likely to be important?
+
+something that gives a clearer idea of whether topological or spatial effects
+	tend to dominate -> probability of being connected to something close versus
+	something with high degree
+	

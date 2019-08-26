@@ -1,0 +1,21 @@
+cardio et al. multiplex airline 2013
+2015 garlaty barthelemy nature schedule traffic
+gasner newman model (optimization lambda)
+	hub and spoke vs road network
+	barthlemey 
+	Newman 541-548
+	aldue
+
+
+Q: equation formatting in LaTeX? when to use commas, periods, capitalization after etc
+
+* equations are part of sentences, only use new paragraph if the equation is end of paragraph
+* small-world effects can be taken asymptotically or statistically with respect to a choice of randomization and look at where the mean geodesic distance falls in the distribution of randomized networks
+	- could be interesting to choose spatial configuration defined in the paper as randomization and then this becomes a useful result from the paper
+* include explanation for how theta threshold is chosen even if it is just calculated via trial and error
+	(better to include your sins and open them for contention)
+* maybe use a couple lnies before the models saying that there will be a quantity calculated later on these
+
+
+cut:
+As a side note, embedding nodes in the network in $d$-dimensional space and assigning fitness values is equivalent to only assigning a position in $(d+1)$-dimensional space (with the $(d+1)$th dimension being fitness), and defining a distance function that distinguishes between the dimensions. The benefit to talking about this model in terms of both space and fitness is that it may provide a more intuitive understanding of the model. Additionally, for systems where a Euclidean distance feels very natural (e.g. road networks, air traffic networks), it is useful to keep distances and fitness separate. For the rest of this paper, distance is used to reference the Euclidean distance of nodes in the $d$-dimensional spatial embedding.

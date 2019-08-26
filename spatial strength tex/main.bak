@@ -1,0 +1,431 @@
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[%
+ reprint,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%showpacs,preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+]{revtex4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\begin{document}
+
+\preprint{APS/123-QED}
+
+\title{Spatially Embedding Network Models via Detterence Function and Characterizing Strengths of Embedding on Topology}
+
+\author{Andrew Liu}
+ \email{liuandrew@ucla.edu}
+\affiliation{%
+ University of California, Los Angeles
+}%
+
+\author{Mason A. Porter}
+\affiliation{
+ University of California, Los Angeles
+}%
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+Many natural networks can be thought of as having nodes embedded in a latent space. Embeddings can affect the probability of whether nodes are adjacent. We extend geographical fitness models using normally distributed fitness, and we generalize preferential attachment and configuration models to spatial versions. Finally, we define a ``spatial strength centrality'' that helps to characterize how strongly the spatial embedding affects the structure of the network.
+\end{abstract}
+
+\pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
+                             % Classification Scheme.
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+                              %display desired
+\maketitle
+
+%\tableofcontents
+
+\section{\label{sec:introduction}Introduction}
+
+Many networks can be thought of as having nodes that are spatially embedded \cite{barthelemy}. For example, in social networks, nodes that represent individuals can be thought of as having a distance between them representing physical distance, or distance in interests and behaviors \cite{social}. In food webs, nodes that represent individuals can have an embedding in latent space representing their size, and thus likelihood to interact. A simple food web example might place individuals on a one dimensional line, with position representing weight, and directed edges representing which nodes eat which other nodes. Physical networks like those for cities and air traffic have a very natural definition of spatial embedding in terms of their actual physical place in the world. Whether networks are embedded in explicit or latent space, the distances between nodes often strongly influence whether they are adjacent. On an intuitive level, nodes that are further apart have less opportunity to interact, and thus there should be lower probability for edges to exist between them. For example, people in a social network may be unlikely to interact if they share little in common, or animals in a food web might not hunt others that are too much larger or smaller than themselves. 
+
+In many cases, it is not immediately obvious how exactly spatial embedding should influence the topological structure of a given network. For the most part, studies of networks have ignored spatial embedding for the sake of simplicity. However, the inclusion of spatial information has the potential to give us more realistic representations of networks. Here, we explore a method to extend non-spatial network models to spatial versions.
+
+In this paper, we first examine an extension of the hidden variable model, the geographical fitness model \cite{yusuke}. We use a normally distributed fitness function, as opposed to an exponential or power-law fitness function. We then discuss similar geographical extensions for Barábasi-Albert (BA) preferential-attachment models and configuration models. These models demonstrate how we can modify existing network models into spatial versions by including a deterrence function $h(r)$ that modifies the probability that nodes are adjacent as a function of their Euclidean distance apart. We compute some network characteristics on these spatial networks to understand how this deterrence function affects the topology of the network.
+
+Afterwards, we define a network characteristic that we term ``spatial strength centrality” which when taken as an average gives a rough idea of how ``strongly'' the spatial embedding affects the topological structure of the network. We examine how this centrality behaves on the spatial models defined. Finally, we compute the centrality for a variety of spatial networks to develop an understanding of its quantity.
+
+\section{\label{sec:fitness_model}Geographical Fitness Model}
+
+\subsection{Prior Research}
+
+The (non-geographical) fitness network model is a class of networks that assigns intrinsic fitness values to the $n$ nodes in a network \cite{yusuke}. These are sometimes also called threshold models \cite{geographical_threshold}. The intrinsic fitness is given by a chosen density function $f(w)$. In the original model, this intrinsic fitness characterizes the propensity of a node to gain edges. 
+
+An example intrinsic fitness distribution is the exponential distribution:
+
+\begin{equation}\label{powerlawfitness}
+f(w) = \lambda e^{-\lambda w}, \qquad w \geq 0.
+\end{equation}
+This function gives the probability that a node has an intrinsic fitness value of $w$, with $\lambda \geq 0$ being a parameter that determines the shape of the distribution. An edge exists between nodes $v_i$ and $v_j$, with $i \neq j$, when 
+
+\begin{equation}
+g(i,j) = w_i + w_j \geq \theta
+\end{equation}
+
+where $\theta$ is the chosen threshold parameter, which determines the fitness of nodes required for them to be adjacent. With this chosen threshold equation, nodes that have a higher fitness $w$ will have higher degree.
+
+When the exponential distribution is chosen as the fitness distribution function, it can be shown that the resulting degree distribution follows a power law, $p(k) \propto k^{-2}$.
+
+We can then extend this to a geographical (or spatial) version of the fitness model, as done in \cite{geographical_threshold, boguna, caldarelli}. In this extension, the network exists in a $d$-dimensional Euclidean space of finite size, for example, $[0, 1] \times [0, 1] \subset \mathbb{R}^2$. In addition to assigning nodes intrinsic fitnesses as described above using $f(w)$, each node $v_i$ is assigned a location in the space. The node has each of its $d$ coordinates determined uniformly at random in the space. An edge exists between nodes $v_i$ and $v_j$ with $i \neq j$ when
+
+\begin{equation}
+g(i, j, r) = (w_i + w_j)h(r) \geq \theta.
+\end{equation}
+Here, $r$ is the Euclidean distance between nodes $v_i$ and $v_j$, and $h(r)$ is a function describing the influence of space on the connection probability of two nodes given their distance. It is sometimes called a ``deterrence function'' \cite{barbosa}. A common choice for this function is \cite{geographical_threshold}
+
+\begin{equation}\label{distance_equation}
+h(r) = r^{-\beta}.
+\end{equation}
+The degree distributions and clustering coefficients for this model with certain values of $\beta$ have been solved exactly \cite{geographical_threshold}, though otherwise have so far been treated numerically. In this paper, we will continue to use (\ref{distance_equation}) in spatial generalizations of preferential-attachment and configuration models.
+
+\subsection{Normally Distributed Fitness}
+
+As mentioned above, the intrinsic fitness is often construed as the propensity of a node to gain edges \cite{geographical_threshold}. In the context of attempting to generate a power-law degree distribution, this makes sense. There are a variety of interesting phenomena that seem to have power-law distributions. One technique to produce such power-law distributions in fitness models is to use a power-law function, such as the one previously shown in (\ref{powerlawfitness}) \cite{geographical_threshold}.
+
+Here instead, we opt to use a normal distribution for fitness. The intuition behind this is that the objects that nodes represent have a variety of intrinsic factors that influence whether they interact with other nodes in the system. We might think of edges between nodes as describing two nodes in a system having some sort of interaction, such as a predator--prey relation in a food web. Summation of multiple random variables can lead to a normal distribution, hence why using this may better capture an idea of intrinsic fitness for nodes in a network \cite{frank}. Specifically we choose a standard normal distribution:
+
+\begin{equation}
+    W {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} N(0, 1).
+\end{equation}
+We also modify the threshold function and write:
+
+\begin{equation}
+    g(i, j, r) = |w_i - w_j|h(r) \geq \theta.
+\end{equation}
+In essence, this suggests that nodes that differ widely in intrinsic fitness are more likely to interact. An example of this idea would be less trafficked web pages linking to more trafficked ones, or predators in a food web being less likely to attack each other, but rather go for weaker prey. We could say that the network exhibits disassortative mixing with respect to the fitnesses of the nodes.
+
+\subsection{Network Simulation and Numerical Analysis}
+
+For numerical computations, we construct networks with $n = 500$ nodes, embedded in $2$-dimensional space of size $[0, 100] \times [0, 100]$ units with periodic boundary conditions. The nodes are given coordinates $(x_1, x_2)$, with $x_1$ and $x_2$ assigned independently with uniform probability on the interval $[0,100]$, as well as normally--distributed fitness with $\mu = 0, \sigma = 1$. 
+
+For the threshold function (\ref{distance_equation}), we vary the $\beta$ parameter as $\beta \in \{ 0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0 \}$, and manually adjust $\theta$ such that the mean degree $\langle k \rangle$ is $20$. In order to achieve this, the choice of $\theta$ is done through a combination of trial-and-error and linear regression fitting. For the following quantities calculated on the networks, $30$ network instances are generated for each value of $\beta$.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographical_degree_distribution3.pdf}
+    \caption{Example degree distributions of networks for different values of $\beta$.}
+\end{figure*}
+
+Note that when $\beta = 0$, we recover a non-geographic threshold model where the distances between nodes do not play a role in the probability of being adjacent. In this regime, a roughly power-law distribution is observed, and for $\beta$ values of $0.5$ and $1.0$ this seems to still hold true. A higher $\beta$ corresponds to stronger distance effects, where further distanced nodes are significantly less likely to be adjacent. 
+
+In the setup described above, we calculate some basic network characteristics and find that they are affected by the distance effects, as given by $\beta$. As one might expect, higher values of $\beta$ correspond with shorter mean edge length, and greater mean geodesic length (in terms of number of edges jumps, and not weighted with distances). The mean clustering coefficient of the network is also increased, which intuitively makes sense, as spatially small neighborhoods of nodes are more likely to be adjacent to each other for larger $\beta$. There is also a range of values (around $\beta = 1.5$) where a small-world effect with low geodesic distance is observed, though this requires further study with more nodes.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographical_network_metrics3.pdf}
+    \caption{Network characteristics of geographical threshold models with normally distributed fitness for different values of $\beta$, $n=500$, $30$ instantiations. (a) Mean clustering coefficient; (b) mean geodesic distance; (c) mean edge length; (d) degree assortativity.}
+\end{figure}
+
+In the regime that looks like a power-law degree distribution (closer to $\beta = 0$), degree assortativity is lower due to high heterogeneous mixing. This is a consequence of the definition of the model, where nodes with extreme fitness (either positive or negative) will have greater values for $|w_i - w_j|$, and so they will be adjacent to all nodes with fitness centered around $0$. These nodes in the center of the fitness distribution are not likely to be adjacent to each other.
+
+However, when $\beta$ is relatively larger (around $\beta \geq 2$), the Euclidean distances hold more influence over the probability that nodes will be adjacent. Thus the negative degree assortativity vanishes. This is especially true if the Euclidean distance of two nodes is less than $1$, since then the $r^{-\beta}$ becomes an increasing multiplicative coefficient. Part of this effect on the topology of the network is due to holding $\langle k \rangle$ constant, as this requires $\theta$ to become smaller, so a relatively smaller fitness separation $|w_i - w_j|$ is required for adjacency. Nodes with extreme fitness values will no longer be adjacent to a majority of other nodes in the network, due to distance limitations, while nodes with low absolute fitness will have the ability to be adjacent to nodes spatially close to them. An examination of closeness centrality in the next section will make some of this effect clear.
+
+\subsection{Closeness Centrality}
+
+The (normalized) closeness centrality gives an idea of how ``close'' a node is to all others in the network as determined by its distance in jumps to all other nodes. This was measured as follows:
+
+\begin{equation}
+    C(v_i) = \frac{n - 1}{\sum\limits_{i \neq j} l(v_i,v_j)},
+\end{equation}
+where $l(v_i, v_j)$ is the geodesic distance between $v_i$ and $v_j$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographic_beta_0_examples2.pdf}
+    \caption{Examples of closeness centrality of nodes in instances of geographical threshold model for $\beta = 0$}
+    \label{fig:closeness_example}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographic_beta_05_examples.pdf}
+    \caption{Examples of closeness centrality of nodes in instances of geographical threshold model for $\beta = 0.5$}
+    \label{fig:closeness_example_2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographic_beta_10_examples.pdf}
+    \caption{Examples of closeness centrality of nodes in instances of geographical threshold model for $\beta = 1.0$}
+    \label{fig:closeness_example_3}
+\end{figure}
+
+In the case of $\beta = 0$, the centralities of nodes are determined exactly by their intrinsic fitness values (since no spatial effects are observed). There is an effect where nodes with extreme values of fitness warp the closeness centralities of other nodes in the network. Extreme nodes act as sorts of shortcuts between nodes that would otherwise not be adjacent, increasing the closeness centralities of nodes with opposite signed fitness. 
+
+Observe the plots in Fig \ref{fig:closeness_example}. In each plot there is a disconnect. We will call nodes in the middle ``gap nodes'', the ones to the left of the disconnect ``negative nodes'', the ones to the right ``positive nodes'', and the node with the largest absolute value for fitness the ``extremum'' (in the top-left plot, this is the left-most node, with a fitness of around $-3$). 
+
+Now taking the top-left plot as an example, the extremum is a negative node. All positive nodes have a large value for $|w_i - w_j|$ with respect to it, so they will be adjacent to it. Thus all positive nodes have a shortcut to each other via the extremum, so the maximal geodesic distance between any two positive nodes is $2$. Due to this, all positive nodes will have a larger closeness centrality. The gap nodes are adjacent to points similar to the extremum on both the positive and negative side, so have short geodesic distance to both positive and negative nodes.
+
+On the other hand, in the bottom-right plot for example, we may have a situation where the extremum does not have a very large absolute value ($w_i < \theta$), thus the gap nodes have no such shortcuts to the rest of the network, hence have lower closeness centrality. For this example in particular, they are entirely disconnected to the network (i.e. they are isolated nodes with closeness centrality equal to $0$).
+
+This effect still occurs for $\beta = 0.5$, where we begin to introduce spatial effects. The plots in Fig \ref{fig:closeness_example_2} were chosen so that they had extremum with large absolute value fitness, so this shortcut warping effect is still seen. However, for $\beta = 1.0$ the effect of extremum on the rest of the network is far less noticeable, as can be seen in Fig \ref{fig:closeness_example_3}. 
+
+By looking at the closeness centrality, we have an idea of the topological structure of the network. The extremum nodes act as hubs to the rest of the network for smaller values of $\beta$ ($\beta < 1.0$). For values of $\beta \gtrapprox 0.5$, extremum cannot acts as such global hubs due the limiting effects of the spatial embedding.
+
+\section{\label{sec:ba-model}Spatial Preferential-Attachment Model}
+
+Next we examine characteristics of a spatial generalization of the BA preferential-attachment model \cite{BA}. There are existing spatial generalizations of the model such as the one introduced in \cite{aiello}. There, the model was defined such that nodes in the network had ``spheres of influence'' with volume proportional to their degree and decaying in time. At each time step, nodes are added with a random spatial coordinate, and connected with probability $p$ if they lie within the sphere of influence of an existing node. Some characteristics of this model have been explored in \cite{emmanuel}.
+
+For our  model, we once again assign each node a spatial coordinate in $[0, 100] \times [0, 100]$ space as they are added to the network. The network starts with a seed of $10$ nodes and is fully connected. Then at each time step, a new node $i$ is added with $m=5$ stubs, each of which is connected to an existing node in the network with probability
+
+\begin{equation}
+    p(v_i,v_j) = \frac{k_j}{n \langle k \rangle}h(r),
+\end{equation}
+where $h(r)$ is the same as in (\ref{distance_equation}). Thus, nodes with larger degrees are more likely to gain more connections and incoming nodes are more likely to connect to nearby nodes than further ones. $500$ time steps are used, with $\beta \in \{ 0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0\}$, and in the following computations, we examine $30$ instantiations for each $\beta$. Since each node adds $5$ edges to the network we can calculate $\langle k \rangle = 9.98$ at the final time step, hence there is no need to control for $\langle k \rangle$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{preferential_attachment_degree_distribution.pdf}
+    \caption{Degree distributions for single instances of the spatial preferential attachment model; from left-to-right, $\beta = 0$, $\beta = 2.0$, $\beta = 4.0$}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{preferential_attachment_metrics.pdf}
+    \caption{Network characteristics of spatial preferential attachment models for different values of $\beta$, $n=510, m=5$, $30$ instantiations. (a) Mean clustering coefficient; (b) mean geodesic distance; (c) mean edge length; (d) degree assortativity}
+\end{figure}
+
+We calculate the same quantities as before --- mean clustering coefficient, geodesic distance, edge length, and degree assortativity. As with the geographical fitness model, similar trends are observed with increases of $\beta$. However in the spatial BA model, it seems that spatial effects are prominently observed around $\beta \gtrapprox 1.0$ as opposed to $\beta \gtrapprox 0$ for the geographic fitness model. We can use the spatial strength measure to provide a scale by which to compare how the spatial effects influence the networks.
+
+\section{\label{sec:configuration_model}Spatial Configuration Model}
+
+In the previous section we explored one way to generalize the BA model to generate networks with an underlying Euclidean space. However, an interesting question is whether we can take an arbitrary classic (non-spatial) model and in a very general way convert it into a spatial variant. 
+
+The goal with the spatial configuration model is to preserve the topological structure of the input network, embed the nodes in latent space, and then adjust the network to incorporate the new embedding. One can come up with many ways to complete this procedure\cite{fosdick}. Here is one possible method:
+
+\begin{enumerate}
+    \item Assign a new coordinate position, chosen uniformly at random, for each node in $[0, 100] \times [0, 100]$.
+    \item To each node, assign $k_i$ stubs corresponding to the degree of the node.
+    \item Choose a stub from step (2) uniformly at random, then choose a second stub with a probability proportional to $h(r)$ being the distance from node $v_j$ to the first stub (giving self-edges probability $0$, as they have distance $0$ from each other so otherwise would end up with undefined probabilities). Connect these two stubs to each other.
+    \item Repeat (3) until all stubs have been matched to form edges.
+\end{enumerate}
+
+In practice, after we have selected the first stub attached to $v_i$ in step (3), we select the second stub by calculating
+\begin{equation}
+    q(v_j, t) = h(r_j)m(v_j, t),
+\end{equation}
+where $m(v_j, t)$ is the number of remaining stubs attached to $v_j$ at time step $t$, and $r_j$ is the distance between $v_i$ and $v_j$. This computes $q(v_j, t)$, the number of stubs that can be selected from $v_j$ weighted by $h(r_j)$. We select a stub uniformly at random from this list of weighted stubs, so the probability of selecting a stub from $v_j$ is:
+
+\begin{equation}\label{configuration_probability}
+    p(v_j, t) = \frac{q(v_j, t)}{\sum_{i \neq k}q(v_k, t)}.
+\end{equation}
+
+Since $r_j$ is independent of the time step, this process can be made more efficient by calculating the pairwise Euclidean distance between all nodes in the network (there are $O(N^2)$ such pairs to calculate) and storing it for reuse in each stub choosing step. After this, the algorithm takes $O(EN)$ time to run.
+
+The definition of this model requires use of a base network (which does not in particular require a spatial or non-spatial network to start). In this case, we use a plain BA preferential attachment with $n=510, m=5$ as the base and construct a spatial configuration-model from it.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{spatial_configuration_degree_distribution.pdf}
+    \caption{Degree distributions for single instances of the spatial configuration attachment model; from left-to-right, $\beta = 0$, $\beta = 2.0$, $\beta = 4.0$}
+\end{figure}
+
+We immediately note that the definition of the model should indicate that the degree distribution is invariant under the model. However, because multi-edges are not forbidden in the definition, it is possible (and here, very clearly the case) that the degrees of nodes can be less or equal to that of their original states. In some situations this may be a desirable effect. Intuitively, we could imagine that if a node were moved from the geographic center of the network towards the outside, it might decrease in degree. However the definition of the model does not leave room for the symmetrical situation where a node may gain more edges in the spatial configuration model.
+
+It is not difficult to modify the definition of the model such that multi-edges are prohibited, simply by removing from consideration nodes to which $v_i$ is already adjacent to in the denominator of \ref{configuration_probability}. Such a choice would depend on the type of spatial network being studied \cite{fosdick}. One limitation is that this definition can never allow self-edges, since $h(r_i)$ is undefined. There are many potential ways one could go about defining a spatial configuration model with given effects, such as randomizing the positions of nodes without modifying the network connectivity. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{spatial_configuration_metrics.pdf}
+    \caption{Network characteristics of geographical threshold models for different values of $\beta$, normally distributed fitness, $n=510$, $30$ instantiations. (a) Mean clustering coefficient; (b) mean geodesic distance; (c) mean edge length; (d) degree assortativity.}
+\end{figure}
+    
+Once again with this spatial configuration model, there are similar effects of increased clustering coefficients, and geodesic distance with higher values of $\beta$ (though the exact values are different). The degree assortativity of the model does not have a clear correlation with $\beta$.
+
+\section{\label{sec:spatial_strength}Spatial Strength Centrality Measure}
+
+The previous explorations of spatial models raises an interesting question: can we quantify the strengths of the effects of the spatial embedding and choice of $h(r)$? It is quite clear that increased values of $\beta$ should lead to more prominent spatial effects on the network topology. But can we compare different $h(r)$ functions, different sizes or dimensions of spatial embedding, or even different spatial distributions of nodes? To tackle this question, we thus define a ``spatial strength centrality'' as the following.
+
+First, let $N(v_i)$ be the set of nodes to which node $v_i$ is adjacent, in other words, its neighborhood. Calculate the mean (Euclidean) edge distance from node $v_i$ to all other nodes in its neighborhood.
+
+\begin{equation}
+    L(v_i) = \frac{\sum_{v_j \in N(v_i)}d(v_i, v_j)}{k_i} \frac{1}{{\langle L \rangle}},
+\end{equation}
+\begin{equation}
+    \langle L \rangle = 2\frac{\sum_{(v_i, v_j) \in E}d(i, j)}{n \langle k \rangle},
+\end{equation}
+where $d(i, j)$ is the Euclidean distance between nodes $v_i$ and $v_j$. The first fraction of $L(v_i)$ gives the mean edge length of $v_i$, and this is normalized against $\langle L \rangle$, the mean edge length of the entire network. We then calculate the mean neighbor degree of each $v_i$, normalized against the mean degree of the entire network:
+
+\begin{equation}
+    K(v_i) = \frac{\sum_{v_j \in N(v_i)} k_j}{\langle k \rangle}.
+\end{equation}
+Finally, we combine the two to get spatial strength:
+
+\begin{equation}
+    S(v_i) = \frac{1}{L(v_i)K(v_i)}.
+\end{equation}
+
+Our motivation is to capture a notion of whether nodes are adjacent because they are spatially close or because they were topologically more likely to be adjacent. Heuristically, a node is ``rewarded'' for being adjacent to nodes that are spatially close, and ``penalized'' for being adjacent to hubs.
+
+As an example, consider an air traffic network case where a small airport $v_i$ is only adjacent to a hub $v_j$ that is also far away. We say that $v_i$ has low spatial strength because it was not linked to $v_j$ for being nearby, but rather because $v_j$ was a hub.
+
+On the flip side, if $v_i$ was adjacent to a number of nearby low-degree nodes, we say it has high spatial strength since its (spatial) neighbors have low degree, yet node $v_i$ is still adjacent to them, suggesting that it is because they are nearby that they are connected.
+
+Finally, we arrive at the mean spatial strength network characteristic, which simply takes an average of the spatial strength of all nodes in the network:
+
+\begin{equation}
+    \langle S \rangle = \frac{\sum_i S(i)}{n},
+\end{equation}
+
+Below are some important considerations for the mean spatial strength.
+
+\begin{enumerate}
+    \item All quantities are normalized, so we expect to be able to compare $S$ regardless of spatial embedding. For example, we expect to be able to consider fungal and road networks, despite them being on vastly different size scales;
+    \item $S$ is non-negative;
+    \item $K(i)$ is normalized by $\langle k \rangle$, rather than the largest $k$ in the network, so it is not guaranteed to be between $0$ and $1$;
+    \item $L(i)$ and $S(i)$ are undefined for nodes that have no edges, and we treat them both as being $0$ in these cases;
+    \item $S$ is unbounded, and in particular it is not confined to values between $0$ and $1$, so they must be interpreted carefully.
+\end{enumerate}
+
+As a preliminary test case, we consider the spatial strength centrality of the previously defined models (geographical fitness, BA, and spatial configuration models). We should expect that the mean spatial strength to increase as $\beta$ increases (which is indeed the case as shown in Fig \ref{fig:spatial_model_strength}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{spatial_model_spatial_strengths.pdf}
+    \caption{Mean spatial strength for the previous models for different values of $\beta$}
+    \label{fig:spatial_model_strength}
+\end{figure}
+
+Interestingly, even though there is a positive correlation between $\beta$ and $S$, it is not a linear relationship. In fact, for all three models, the relationship between $\beta$ and $S$ appears to be a roughly S-shaped curve. For the geographical fitness plot, it tapers off for higher values of $\beta$ similar to the other plots, but if we were to extrapolate to negative values of $\beta$, it seems like the plot predicts negative values for $S$, but by definition the spatial strength is non-negative. Thus for all three models, spatial strength seems like it may approach some upper bound. 
+
+Heuristically, if we consider a very large $\beta$ (say, on the order of $10$), then the only edges that can be formed between nodes are those of immediate spatial neighbors. In this situation, the graph should look planar. In all three models, nodes are assigned coordinates uniformly at random, and the spatial strength will heavily be influenced by the density of nodes, which would dictate mean edge length. For even larger $\beta$ (on the order of $100$ or $1000$), we could think of this as the ``cost'' to create an edge becoming extremely large, so no edges would be formed at all and the network becomes a set of isolated nodes. However, due to the definition of the models, this never becomes the case. For the fitness model, we adjust $\theta$ so that $\langle k \rangle$ is about $20$. For the BA and spatial configuration models, we require that stubs are turned into edges. Thus at most, high $\beta$ values lead to roughly planar networks.
+
+This disagreement between our intuition and what the models produce (i.e. the inability of producing a network of isolated nodes) might suggest a weakness of the models. It also illuminates a possible use case of the spatial strength: it could potentially be used to detect when networks begin to break apart or disconnect due to spatial restrictions by observing when the spatial strength centrality has sudden or discontinuous changes.
+
+\subsection{Visualizing Two-Dimensional Spatial Networks}
+
+It would be remiss to not take advantage of visualization, a particular benefit of embedding networks in two-dimensional space. Each node has a coordinate, so there is a principled way to decide where nodes should be placed in a figure. From this, we can get a sense of what different values for spatial strength centrality look like (see Fig ~\ref{fig:network_visualizations}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{geographic_example_no_highlight2horiz.pdf}
+    \caption{Network visualizations using single instantiations of the geographic fitness model, $n=150$, nodes placed according to their assigned coordinates. Left: $\beta = 0.5, S = 0.591$; right: $\beta = 3.0, S = 1.119$}
+    \label{fig:network_visualizations}
+\end{figure}
+
+To make it easier to see nodes and edges, the networks in the visualizations are instantiated with only $n=150$ nodes, as opposed to the $500$ used for computations. For $\beta = 0.5$, the instantiation has a number of long-range edges that span nearly the entire width of the spatial embedding (noting that periodic boundary conditions are used), and the spatial strength is $S=0.591$. For $\beta = 3.0$, the network looks very different, where nodes are only adjacent to other that are spatially close, and the spatial strength is $S=1.119$. This visualization hopefully provides some intuition for what characteristic spatial strength attempts to measure.
+
+\subsection{Testing Spatial Strength on Toy Models}
+
+In this section, we compute the spatial strength of a number of toy examples to get a better idea of how the spatial strength centrality behaves.
+
+\textbf{Lattice.} The lattice network is given $x$ columns and $y$ rows, with a total of $n = xy$ nodes. These are spaced evenly in $[0,1] \times [0,1]$, and each node is adjacent to nodes north, south, east, or west of itself (Fig \ref{fig:toy_network_examples} left plot). This is a very simple test case and when $x=y$, the mean spatial strength tends towards $1$ as $n^2 \rightarrow \infty$.
+
+\textbf{Spatially Embedded Cayley Tree.} The network has $b$ branches and $l$ layers. We start with one central node (layer $0$). Inductively, every node in layer $i$ is adjacent to $b$ nodes in layer $i+1$, spaced equally in a radius $i+1$ circle (Fig \ref{fig:toy_network_examples} middle plot). 
+
+\textbf{Hub and Spoke Example.} This arbitrarily constructed example has three ``hub'' nodes spaced relatively far away from each of its $10$ ``spoke'' nodes spaced in a circle about the hub node (Fig \ref{fig:toy_network_examples} right plot). It is meant to show a toy example of a hub and spoke network that might be similar to an air traffic network. It is meant to demonstrate that a network with long-range connections may have a relatively lower spatial strength centrality.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{toy_network_examples.pdf}
+    \caption{Artificially constructed toy example networks to with values for mean spatial strength shown. Left: lattice network; middle: spatially embedded Cayley tree; right: hub and spoke toy example.}
+    \label{fig:toy_network_examples}
+\end{figure}
+
+\textbf{Breaking Example.} By exploiting the definition of the spatial strength centrality, we can create a network that consists of two pairs of nodes, where the nodes of each pair are adjacent (Fig \ref{fig:breaking_example}). By making one edge short and the other arbitrarily large, we can have the mean spatial strength go to infinity. Thus there is no upper bound on the centrality.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{breaking_example_spatial_strength.pdf}
+    \caption{This example network of two pairs of nodes shows that $S$ can be made arbitrarily large.}
+    \label{fig:breaking_example}
+\end{figure}
+
+\subsection{Comparing Spatial Strength on Datasets}
+
+We test the spatial strength metric on some existing spatial network datasets, as well as the random geometric graph (RGG) \cite{rgg}. The datasets for fungal network are from \cite{fungal_data}, and the datasets for city road networks are courtesy of \cite{road_data}. Some example networks and their spatial strengths are shown in Fig \ref{fig:data_network_examples}.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=1.0\linewidth]{data_network_examples.pdf}
+    \caption{Example networks and spatial strengths from datasets and random geometric graph model. Left: road network example (Tunis, Africa); riddle: fungal network example; right: random geometric graph model ($n = 500, r = 0.07$)}
+    \label{fig:data_network_examples}
+\end{figure*}
+
+It is worth noting that none of the models explored thus far in the paper have had a mean spatial strength of greater than $2$ (including the RGG model). However, there are many examples of networks in the city and fungal datasets that surpass this bound. This may be suggesting that the models fail to capture some sort of feature that real networks have.
+
+However, upon surveying of some of the networks in the datasets that have the greatest spatial strength we note that they seem to have greater ``detail'', i.e. they have some areas where nodes are very close. For example in the city network example (Fig \ref{fig:data_network_examples}, left side) multiple nodes are used to trace out bends or curves in the road. This has the effect of creating nodes with short edges between them. It almost appears as if the network operates on two scales --- one where edges are the length of street blocks, and one where upwards of $10$ edges could fit in one such block. As we saw in the breaking example in Fig \ref{fig:breaking_example}, having very long edges mixed with very short edges may cause huge increases in spatial strength.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{spatial_strength_distributions.pdf}
+    \caption{Distributions of spatial strengths for examples from models and datasets. From top to bottom: geographical fitness networks, BA models, spatial configuration models, random geometric graphs, spatial Cayley trees, fungal network datasets, and city road network datasets.}
+    \label{fig:spatial_distributions}
+\end{figure}
+
+Finally, Fig \ref{fig:spatial_distributions} shows a comparison of distributions of spatial strengths for each model and dataset explored thus far. The distribution of fungal network spatial strengths look similar to RGG networks, though visually most of them look more like Cayley trees. The road networks have a very wide range of spatial strengths, and as discussed before reach greater values than for any of the models explored.
+
+\section{\label{sec:discussion}Discussion}
+
+In this paper, we have examined a straightforwardly implementable method of generalizing network generating models to spatial networks by adding a deterrence function $h(r) = r^{-\beta}$ based on the Euclidean distances between nodes, which is applied whenever considering when to add edges between nodes. 
+
+The spatial configuration model we defined begins to show an approach to apply this method even more generally, forgoing the need to redefine models, and rather applying it as a layer on top of existing models to incorporate a latent space to them. We discussed other possible methods for defining a spatial configuration model. It is important to note that different definitions will be appropriate for modeling different types of networks \cite{fosdick}, and we hope that further exploration will produce a model that makes spatial network analysis more easily available.
+
+In general, we see an increase in clustering coefficient and mean geodesic distance as the Euclidean space exerts more influence (in the form of a larger $\beta$ parameter), and a decrease in the prominence of a power-law degree distribution. To quantify this exactly would take deeper examination, though one could intuit that in a limit of $\beta \rightarrow \infty$, the graph can only connect nodes that are nearest to each other, and so it should take on planar form, which can almost never have a power-law scaling. 
+
+A specific case of geographical fitness model with normally distributed fitness potentially gives a way to generate degree distributions that looks like they have power-law distribution without fitness distributions that look similar to power-laws to begin with. With this, we think of intrinsic node fitnesses not as a propensity to gain edges (in contrast to the common interpretation \cite{geographical_threshold}), but rather as a mix of variables with unknown distribution that influence the likelihood of nodes interacting. With this intuition, we could also consider using mixture models to assign fitnesses to nodes. This model in general could be modified to use different threshold functions or fitness distributions.
+
+We defined a spatial strength centrality, which when averaged over the network gives a way to estimate how strongly the effects of the underlying spatial embedding affect the network structure. Since it is not bounded to $[0, 1]$ and is not simple to interpret, we attempted to develop an idea of how it behaves with different models, datasets and examples. 
+
+There are nonlinear relationships between the mean spatial strength centrality and $\beta$ parameter explored, and even simple RGG and Cayley tree models appear to have interesting distributions of spatial strengths over a variety of parameters. So we expect that this centrality is detecting some non-trivial information about the networks. Additionally, although we provide an introduction to the metric, we compute it only as a mean across the entire network. A closer examination of the distribution of node spatial strengths for different networks may be even more illuminating. Overall, the hope is that further understanding of this quantity will allow it to be used to detect interesting features in spatial networks.
+
+There are often very natural ways to think of networks as embedded in space, and doing so may provide richer insight into networks being studied. Improving techniques will give us unique ways to think about when nodes in a network should be adjacent, and give us ways to analyze physically spatially embedded networks without ignoring the spatial components. As these tools become more common, we hope that treatment of networks as spatially embedded becomes easier.
+
+
+\bibliography{references}
+
+\end{document}
+%
+% ****** End of file apssamp.tex ******
