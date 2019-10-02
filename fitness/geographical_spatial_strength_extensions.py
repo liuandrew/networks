@@ -263,7 +263,7 @@ def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, hide_t
   if(ss_title):
     _, spatial_strength = report_spatial_strength_centrality(G, pbc=pbc, graph=False,
       ret=True, normalized=4)
-    plt.title(r'$\langle S \rangle \approx {0:.3f}$'.format(spatial_strength), y=1.02)
+    plt.title(r'$\langle S \rangle \approx {0:.3f}$'.format(spatial_strength), y=1.05)
   if(graph_edges):
     if(pbc):
         for i in G.edges:
@@ -550,13 +550,13 @@ def analyze_graphs_with_function(func_type, verbose=0, xlabel=False, ylabel=Fals
     centrality_types = {
         'degree_assortativity': r'Degree assortativity',
        'laplacian_spectrum': r'2nd Smallest Eigenvalue, Lambda',
-       'clustering': r'Mean local clustering coefficient (C)',
-       'geodesic': r'Mean geodesic distance (L)',
+       'clustering': r'Mean local clustering coefficient ($C$)',
+       'geodesic': r'Mean geodesic distance ($L$)',
        'connectance': r'Connectance',
         'clustering_ratio': r'Clustering Ratio, (C / (N/E^2))',
         'mean_degree': r'Mean degree, \langle k \rangle',
         'average_edge_length': r'Mean edge length',
-        'average_spatial_strength': r'Mean spatial strength (S)'
+        'average_spatial_strength': r'Mean spatial strength ($S$)'
     }
     if(subplot is None):
         plt.figure(figsize=(8, 8))

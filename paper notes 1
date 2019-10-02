@@ -1,0 +1,69 @@
+bianconi barbasi [42, 43]
+
+overall:
+- the models of the paper are mostly trying to show this idea that addition of a deterrence function already provides useful generalization
+
+
+PA:
+[286, 338, 340]
+- how much detail to go into for existing models?
+- how to tell if there's a power law?
+- is 10000 nodes enough to examine the model with?
+	- it seems like most papers doing spatial PA use on the order of 5k-10k nodes, seems like significantly more computationally heavy than BA model
+- comments suggested to take a look at PA with fitness i.e. Bianconi Barabasi, but this seems less relevant than geometric generalizations
+* main differences between this model is thinking of the addition of spatial effect as being something generalizable to models with deterrence function h(r), rather than potentially redefining the model
+
+clausett KS test
+	broido and clausett
+	eduardo altmann phys rev 2019
+
+
+various spatial PA treatments:
+https://journals.aps.org/pre/pdf/10.1103/PhysRevE.66.066114
+S. S. Manna and Parongama Sen
+Phys. Rev. E 66, 066114 – Published 12 December 2002
+Modulated scale-free network in Euclidean space
+Issue 6
+* uniform random coordinate on unit square
+* connection probability ~ k_i(t) l^a
+* each incoming node only has one out-edge
+	- considers a -> infinity (only connects to furthest node) and a -> -infty (only connects to single closest node)
+explores distribution of edge lengths and probability of degree of node born at time t to be power law with respect to t
+
+
+https://www.pnas.org/content/99/21/13382.short
+Soon-Hyung Yook, Hawoong Jeong, and Albert-László Barabási
+PNAS October 15, 2002 99 (21) 13382-13386
+* inspired by internet design, so wants to make a model specifically for treatment of internet network
+- first introduction of spatial PA, offering kickoff point for developing scale free networks with specific spatial layout
+* connection probability ~ k^alph / d^sig
+	- considers 0 >= alph >= 1 and 0 >= sig >= 1
+- conclusions talk mostly about the space in the phase plane along alph, sig, Df that the internet takes up (as well as where other models for internet networks lie)
+	(clearly internet networks were a pretty hot topic back then)
+
+https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.026118
+R. Xulvi-Brunet and I. M. Sokolov
+Phys. Rev. E 66, 026118 – Published 26 August 2002
+Issue 2
+* 1 dimensional treatment
+* connection probability ~ k * d^-a
+- different P(k) for a < 1 (power law) and a > 1 (streteched exponential)
+- small worldness as log scaling for diameter with respect to N found
+
+
+https://journals.aps.org/pre/abstract/10.1103/PhysRevE.84.016103
+Luca Ferretti and Michele Cortelezzi
+Phys. Rev. E 84, 016103 – Published 8 July 2011
+Issue 1
+* uses different deterrence function (exponential, heavistep)
+* examines on flat and hyperbolic disks
+
+Paper List
+
+Global Optimization, Local Adaptation, and the Role of Growth in Distribution Networks
+Henrik Ronellenfitsch* and Eleni Katifori†
+2016
+	Evolving leaf venation networks through optimal transport
+	Can come up with dynamical system for evolution of network by optimizing certain parameters
+	Thus a simpler explanation for generation of these transport networks than genetic encoding of all information. Rather, the evolution makes it easier to encode network development information and maybe more robust to changes?
+

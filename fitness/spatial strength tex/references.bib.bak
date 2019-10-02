@@ -1,0 +1,457 @@
+@article{geographical_threshold,
+    author =       "Naoki Masuda and Hiroyoshi Miwa and Norio Konno",
+    title =        "Geographical threshold graphs with small-world and scale-free properties",
+    journal =      "Physical Review E",
+    volume =       "71",
+    pages = {036108},
+    year =         "2005"
+    
+}
+%https://journals.aps.org/pre/pdf/10.1103/PhysRevE.71.036108
+
+@article{threshold,
+    author =       "Naoki Masuda and Hiroyoshi Miwa and Norio Konno",
+    title =        "Analysis of scale-free networks based on a threshold graph with intrinsic vertex weights",
+    journal =      "Physical Review E",
+    volume =       "70",
+    pages = {036124},
+    year =         "2004"
+}
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.036124
+
+@book{barthelemy,
+author = "Marc Barthelemy",
+publisher = "Springer International Publishing",
+title = "Morphogenesis of Spatial Networks",
+address = {Cham, Switzerland},
+year = "2018"
+}
+
+
+@book{penrose-rgg,
+author = "Penrose, Matthew",
+publisher = "Oxford University Press",
+title = "Random Geometric Graphs",
+address = {Oxford, UK},
+year = "2003"
+}
+
+
+@article{social,
+author = "Peter D. Hoff and Adrian E. Raftery and Mark S. Handcock. ",
+title = "Latent space approaches to social network analysis.",
+journal = "Journal of the American Statistical Association",
+volume = "97",
+year = "2002",
+pages = "1090--1098",
+issue ="460"
+}
+
+
+@book{newman2018,
+ author = {Newman, Mark E. J.},
+ title = {Networks},
+ year = {2018},
+ isbn = {0199206651, 9780199206650},
+ publisher = {Oxford University Press, Inc.},
+ edition = {Second},
+ address = {Oxford, UK},
+}
+
+
+@article{yusuke,
+author = "Ide, Yusuke and Konno, Norio and Obata, Nobuaki",
+title = "Spectral properties of the threshold network model",
+journal = "Internet Mathematics",
+volume = {6},
+number = {2},
+year = "2010",
+pages = "173--187"
+}
+
+
+@article{barbosa,
+author = "Hugo Barbosa and Marc Barthelemy and Gourab Ghoshal and Charlotte R. James and Maxime Lenormand and Thomas Louail and Ronaldo Menezes and Jos\'{e} J. Ramasco and Filippo Simini and MarcelloTomasini",
+title =        "Human mobility: {M}odels and applications",
+journal =      "Physics Reports",
+volume =       "734",
+year =         "2018",
+pages = "1--74"
+}
+
+
+@article{boguna,
+author = "Mari\'{a}n Bogu{\~n}a and Romualdo Pastor-Satorras",
+title = "Class of correlated random networks with hidden variables",
+journal = "Physical Review E",
+pages = {036112},
+year = "2003", 
+volume = "68"
+}
+
+
+@article{caldarelli,
+author = "G. Caldarelli and A. Capocci and P. De Los Rios and M. A. Munoz",
+title = "Scale-free networks from varying vertex intrinsic fitness",
+year = "2002",
+journal = "Physical Review Letters",
+volume = "89",
+number = {25},
+pages = {258--702}
+}
+%original fitness model
+%https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.89.258702
+
+
+@article{frank,
+author = "Steven A. Frank",
+year = "2009",
+journal = "Journal of Evolutionary Biolology",
+title = "The common patterns of nature",
+volume = "22",
+issue = 8,
+pages = "1563--1585"
+}
+
+
+@article{aiello,
+author = "W. Aiello and A. Bonato and C. Cooper and J. Janssen and P. Pralat",
+title = "A spatial web graph model with local influence regions",
+year = "2008",
+journal = "Internet Mathematics",
+number = {1--2},
+pages = {175--196},
+volume = "5"
+}
+
+
+@article{emmanuel,
+author = "Jacob Emmanuel and Peter M{\"o}rters",
+year = "2015",
+title = "Spatial preferential attachment networks: power laws and clustering coefficients",
+journal = "The Annals of Applied Probability",
+volume = "25",
+number = "2",
+page = "632--662"
+}
+%https://projecteuclid.org/euclid.aoap/1424355126
+%spatial preferential attachment with growing influence regions - power law degree distribution and convergence to positive constant for average clustering coefficient
+
+
+@article{fosdick,
+author = "Bailey K. Fosdick and Daniel B. Larremore and Joel Nishimura and Johan Ugander",
+year = "2018",
+title = "Configuring Random Graph Models with Fixed Degree Sequence",
+journal = "SIAM Review",
+volume = "60",
+number = "2",
+pages = "315--355"
+}
+
+
+@article{rgg,
+author = "Jesper Dall and Michael Christensen",
+journal = "Physical Review E",
+year = "2002",
+volume = {66},
+pages = {016121},
+title = "Random geometric graphs"
+}
+
+@article{fungal_data,
+author = "Sang Hoon Lee and Mark D. Fricker and Mason A. Porter",
+year = "2017",
+title = {Mesoscale analyses of fungal networks as an approach for quantifying phenotypic traits},
+journal = "Journal of Complex Networks",
+volume = "5",
+number = "1",
+pages = "145--159"
+}
+
+
+@article{papa2018,
+author = "Papadopoulos, Lia and Porter, Mason A. and Daniels, Karen E. and Bassett, Danielle S.",
+year = "2018",
+title = {Network analysis of particles and grains},
+journal = "Journal of Complex Networks",
+volume = "6",
+number = "4",
+pages = "485--565"
+}
+
+
+@article{road_data,
+author = "Sang Hoon Lee and Peter Holme",
+year = "2012",
+journal = "Physical Review Letters",
+volume = "108",
+pages = "128-701",
+title = "Exploring maps with greedy navigators",
+number = {12}
+}
+
+
+@article{BA,
+author= "A.-L. Barab\'asi and R\'eka Albert",
+title = "Emergence of scaling in random networks",
+journal = "Science",
+volume ={286},
+number = {5439},
+pages = {509--512},
+year = "1999"
+}
+
+
+@article{foodwebs,
+author = "Richard J. Williams and Neo D. Martinez",
+title = "Simple rules yield complex food webs",
+journal = "Nature",
+volume = {404},
+pages={180--183},
+year={2000}
+}
+%detailing usage of food web --- niche model vs random and cascade models
+%https://www.nature.com/articles/35004572
+
+
+@article{air-traffic,
+author = "Alain Barrat and Marc Barthelemy and Alessandro Vespignani",
+journal = "Journal of Statistical Mechanics: Theory and Experiment",
+volume = {2005},
+year = {2005},
+title = "The effects of spatial constraints on the evolution of weighted complex networks"
+}
+%air traffic networks and how spatial considerations can modify network topology
+%https://iopscience.iop.org/article/10.1088/1742-5468/2005/05/P05003/meta
+
+
+@article{spatial1,
+author = "Paolo Crucitti and Vito Latora and Sergio Porta",
+journal = "Phys. Rev. E",
+volume = {73},
+pages = {036--125},
+issue = {3},
+year = {2006},
+title = "Centrality measures in spatial networks of urban streets"
+}
+%using centrality measures in spatial networks
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.73.036125
+
+
+@article{routelengthstatistic,
+author = "David J. Aldous and Julian Shun",
+journal = "Statist. Sci.",
+volume = {25},
+number = {3},
+year = {2010},
+pages = {275-288},
+title = "Connected Spatial Networks over Random Points and a Route-Length Statistic"
+}
+%use of route length centrality (comparison of euclidean distance vs network distance) as efficiency of network
+%https://projecteuclid.org/download/pdfview_1/euclid.ss/1294167960
+
+
+@article{socialdistance,
+author = "Marián Boguñá and Romualdo Pastor-Satorras and Albert Díaz-Guilera and Alex Arenas",
+journal = "Phys. Rev. E",
+volume = {70},
+number = {5},
+year = {2004},
+pages = {056-122},
+title = "Models of social networks based on social distance attachment"
+}
+%spatial social network modeling distance as similarities between individuals
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.70.056122
+
+
+@article{community1,
+author = "Marta Sarzynska and Elizabeth A. Leicht and Gerardo Chowell and Mason A. Porter",
+journal = "Journal of Complex Networks",
+volume = {4},
+number = {3}, 
+year = {2016},
+pages = {363--406},
+title = "Null models for community detection in spatially embedded, temporal networks"
+}
+%to determine a community structure, you compare data against a null model and see statistical differences, thus choice of null model is important. Spatial networks require spatial null models
+%http://www.math.ucla.edu/~mason/papers/sarzynska-final.pdf
+
+
+@article{community2,
+author = "Paul Expert and Tim S. Evans and Vincent D. Blondel and Renaud Lambiotte",
+journal = "PNAS",
+year = {2011},
+volume = {108},
+number = {19},
+pages = {7663--7668},
+title = "Uncovering space-independent communities in spatial networks"
+}
+%same as above
+%https://www.pnas.org/content/pnas/108/19/7663.full.pdf
+
+
+@article{braingrowth1,
+author = "Florian Klimm and Danielle S. Bassett and Jean M. Carlson and Peter J. Mucha",
+journal = "PLoS Comput Biol",
+volume = {10},
+number = {3},
+year = {2014},
+title = "Resolving Structural Variability in Network Models and the Brain"
+}
+%13 network models to model neuron network growth, spatial ones work best
+%https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003491
+
+
+@article{braingrowth2,
+author = "Damien A. Fair and Alexander L. Cohen and Jonathan D. Power and Nico U. F. Dosenbach and Jessica A. Church and Francis M. Miezin and Bradley L. Schlaggar and Steven E. Petersen",
+journal = "PLoS Comput Biol",
+volume = {5},
+number = {5},
+year = {2009},
+title = "Functional Brain Networks Develop from a ''Local to Distributed`` Organization"
+}
+%spatial properties of brain network change from child to adult -- from primarily short range connections to "small-world"ness
+%https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000381
+
+
+@article{spatialefficiency,
+author = "Michael T Gastner and M E J Newman",
+journal = "J. Stat. Mech.",
+volume = {2006},
+number = {1},
+year = {2006},
+title = "Shape and efficiency in spatial distribution networks"
+}
+%spatial networks (gas pipeline, train tracks) have good efficiency (total edge length vs route factor). Spatial optimization models can mimic this well
+%https://iopscience.iop.org/article/10.1088/1742-5468/2006/01/P01015/fulltext/
+
+
+@article{geographical_threshold2,
+author = "Milan Bradonjić and Aric Hagberg and Allon G. Percus",
+journal = "Internet Mathematics",
+volume = {5},
+number = {3},
+pages = {113--139},
+year = {2011},
+title = "The Structure of Geographical Threshold Graphs"
+}
+%properties of geographical threshold model, sometimes treated analytically other times numerically, explores clustering, giant component, degree distribution
+%https://www.tandfonline.com/doi/abs/10.1080/15427951.2008.10129304?casa_token=75fMl5wh0fQAAAAA:WnghfPD6NF0LCjWPDUGtmNIce_x4HS5gHWx4FtyWKHIMZjy8kEzM3QDHpX4kqtiT6DLnjH4G4bc9tQ4
+
+
+@article{rgg_correlations,
+author = "Alberto Antonioni and Marco Tomassini",
+journal = "Physical Review E",
+volume = {86},
+number = {3},
+year = {2012},
+title = "Degree correlations in random geometric graphs"
+}
+
+
+@article{mean_field_evolving_spatial,
+author = "Jake P. Taylor-King and David Basanta and S. Jonathan Chapman and Mason A. Porter",
+journal = "Physical Review E",
+volume = {96},
+number = {1},
+year = {2017},
+title = "Mean-field approach to evolving spatial networks, with an application to osteocyte network formation"
+}
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.96.012301
+%demonstration of evolving networks with spatial component, or even arbitrary state space explicitly treating time
+
+
+@article{geometric_preferential_attachment,
+author = "Konstantin Zuev and Mari\'{a}n Bogu{\~n}a and Ginestra Bianconi and Dmitri Krioukov",
+journal = "Scientific Reports",
+volume = {5},
+number = {9421},
+year = {2015},
+title = "Emergence of Soft Communities from Geometric Preferential Attachment"
+}
+%https://www.nature.com/articles/srep09421
+%using geometric preferential attachment on hyperbolic disc treating popularity as time and similarity as angular difference, showing clustering, scale-free and soft communities
+
+
+@article{SPA1,
+author = "R. Xulvi-Brunet and I. M. Sokolov",
+journal = "Physical Review E",
+volume = {66},
+number = {2},
+year = {2002},
+title = "Evolving networks with disadvantaged long-range connections"
+}
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.66.026118
+%1 dimensional, finds small worldness
+
+
+@article{SPA2, 
+author = "S. S. Manna and Parongama Sen",
+journal = "Physical Review E",
+volume = {66},
+number = {6},
+year = {2002},
+title = "Modulated scale-free network in Euclidean space"
+}
+%https://journals.aps.org/pre/pdf/10.1103/PhysRevE.66.066114
+%one edge per incoming node, shows power law distribution for alpha below critical
+%spatial preferential attachment with power deterrence function (3 articles from 2002)
+
+
+@article{SPA3,
+author = "Soon-Hyung Yook and Hawoong Jeong and Albert-László Barabási",
+journal = "PNAS",
+volume = {99},
+number = {21},
+year = {2002},
+title = "Modeling the Internet's large-scale topology"
+}
+%https://www.pnas.org/content/99/21/13382.short
+
+
+@article{SPA4,
+author = "Luca Ferretti and Michele Cortelezzi",
+journal = "Physical Review E",
+volume = {84},
+number = {1},
+year = {2011},
+title = "Preferential attachment in growing spatial networks"
+}
+%https://journals.aps.org/pre/abstract/10.1103/PhysRevE.84.016103
+
+
+
+@article{forcechains,
+title={Extraction of force-chain network architecture in granular materials using community detection},
+author={Danielle S Bassett and Eli T Owens and Mason A Porter and M Lisa Manning and Karen E Daniels},
+journal={Soft Matter},
+volume={11},
+number={14},
+pages={2731--2744},
+year={2015},
+publisher={Royal Society of Chemistry}
+}
+%https://pubs.rsc.org/en/content/articlepdf/2015/sm/c4sm01821d
+
+
+@article{leaf_optimization,
+title={Global optimization, local adaptation, and the role of growth in distribution networks},
+author={Henrik Ronellenfitsch and Eleni Katifori},
+journal={Physical review letters},
+volume={117},
+number={13},
+pages={138301},
+year={2016},
+publisher={APS}
+}
+%https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.138301
+
+@article{boeing2018multi,
+  title={A multi-scale analysis of 27,000 urban street networks: Every US city, town, urbanized area, and Zillow neighborhood},
+  author={Geoff Boeing},
+  journal={Environment and Planning B: Urban Analytics and City Science},
+  pages={2399808318784595},
+  year={2018},
+  publisher={SAGE Publications Sage UK: London, England}
+}
+%https://journals.sagepub.com/doi/abs/10.1177/2399808318784595
