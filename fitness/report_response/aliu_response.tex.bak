@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{
+left=30mm,
+right=30mm,
+top=30mm,
+bottom=30mm
+}
+
+%Response to review 1 for submission ek11761, "Spatial Strength Centrality and the Effect of Spatial Embeddings on Network Architecture", reviewed December 16 2019
+
+\setlength{\parindent}{0pt} %Remove paragraph indents
+\setlength{\parskip}{1em} %Set linebreak lengths
+\renewcommand{\baselinestretch}{1.1} %Set 1.1 linespacing
+
+\definecolor{res}{HTML}{7528EF}
+
+\begin{document}
+14 February 2020
+
+Thank you very much for the referee reports from 16 December. We are glad that both referees responded to the manuscript positively, and of course offer valid constructive criticism to the scope of the paper as well. Following the helpful notes given by the referees, we have polished the manuscript, and below we respond to the remarks given by the referees. We look forward to receiving a decision on the revised manuscript.
+
+------
+
+\textbf{Referee 1}
+
+(Remarks to the authors)
+
+The main idea -- that one should try to formulate a notion of ``spatial
+strength centrality'' -- is worthwhile and interesting, and this paper
+introduces and studies a definition that seems plausible though (like
+most such definitions in network theory) also seems somewhat
+arbitrary. The paper is professionally written with a useful and
+thorough discussion of relevant existing literature. All this makes it
+definitely worth publishing, for a journal devoted to quantitative
+network theory. Like most of the many thousands of network theory
+papers (including my own) in physics journals it has little connection
+with actual physics (cf the second author's old "Critical Truths About
+Power Laws" article) but if the editors of PRE are happy with such
+papers then so am I. 
+
+{\color{res} Response: Thank you for the kind comments. We hope that in the paper we have justified the utility in considering such a ``spatial strength centrality'', and indeed agree that this iteration of it is perhaps not yet the best, but points in the right direction.}
+
+
+------
+
+\pagebreak
+
+
+\textbf{Referee 2}
+
+(Remarks to the authors)
+
+The authors study effects of spacial embeddings on networks. Their contribution relies in
+proposing extensions of existing spatial or non-spatial network models and running several
+numerical studies to investigate their behavior. They also propose a spatial centrality
+measure as a candidate metric to measure the effect of spatial embedding in edge formation.
+
+The authors fail to fully motivate me about the relevance of this contribution as there are
+no relevant examples on real data showcasing potential applications, which would make the
+paper stronger. However, the paper is clearly written and the problem is well presented and
+investigated, in particular in criticizing the model choices and assumptions that they make.
+I appreciate the honesty in showing that real networks show spatial centrality values that are
+higher than those obtained in their synthetic structures, thus highlighting that this measure,
+or the synthetic topologies, are missing some information that is contained in real data. It is
+thorough from their part not only to show this but also to point out several ideas to improve
+this measure (section V E).
+
+Judging the scientific quality, I vote for accepting the paper.
+
+{\color{res} Response: Thank you for the kind comments and for your suggestions to improve our paper. }
+
+There are minor corrections that I recommend:
+
+\begin{itemize}
+\item The spatial centrality as defined in (14) seems to reward hubs, i.e. nodes with many
+connections to, likely, small-degree nodes. In other words, $S(hub)$ should be big
+because of $K(hub)$ is small. In this case then, it seems to me that this measure is not
+capable of distinguishing spatial contributions, as the magnitude of S is due mainly
+to K. Perhaps add few lines in page 10 (where you discuss about neighbors of a hub)
+about this scenario, i.e. the S for a hub; in addition, for the hub-spoke network of
+figure 15, it would be helpful to see the values of S for the 3 hubs compared to the
+average values of the non-hub nodes, to see the interplay of these two contributions to
+the overall small S.
+\end{itemize}
+
+{\color{res} Response: Thank you for this insightful comment. We have added further detail to the hub-and-spoke example (see Figure 16) and discussion about how individual spatial centralities contribute to the mean of the network.}
+
+\begin{itemize}
+\item The `deterrence’ function in the abstract was obscure to me the first time I read. It
+is a jargon only introduced later in the paper. Perhaps, for the abstract, think about
+another clearer name for that function.
+\end{itemize}
+
+{\color{res} We have modified the abstract to avoid using the term `deterrence' function until it is properly introduced in the introduction section.}
+
+\begin{itemize}
+\item The explanation of why they consider Gaussian-distributed fitness (sec II B) it is not
+clear. They say that nodes have a variety of intrinsic factors that influences how
+they interact. Are you thinking about the central limit theorem or something similar?
+Please make a clearer statement.
+\end{itemize}
+
+{\color{res} We have updated this section to better clarify why we choose Gaussian-distributed fitness.}
+
+\begin{itemize}
+\item In Pag 8 end of sec IV A, they mention potential other types of spatial configuration
+models. For example, preserving A but randomizing the locations. I’m confused,
+isn’t it this already part of their model? Meaning, that in their models it seems that
+locations are always chosen randomly anyway. Are you thinking about a case where
+locations are instead given a priori? (example as attributes). Please make this sentence
+more clear.
+\end{itemize}
+
+{\color{res} We have adjusted this sentence to be more clear.}
+
+\begin{itemize}
+\item Please add error bars on plots where necessary, e.g. when you run over 30 instances.
+\end{itemize}
+
+{\color{res} We have implemented the suggested change.}
+
+\begin{itemize}
+\item Fig 12, why for the orange markers (config model SPA) there are less points? Is it
+because is more computationally intense? Please say it somewhere, perhaps in the
+caption.
+\end{itemize}
+
+{\color{res} We have included in the caption to this figure an explanation for the difference in number of points.}
+
+\pagebreak
+
+Typos:
+\begin{itemize}
+\item Pag 1 beginning of introduction: In nature, such a space can be literal,..., or ’they’ !
+’it’ can be ...;
+\item One line below: ’one can construe’ ! ’one can construct’;
+\item Pag 8 left columns: ’One can also many’ ! ’One can also envision many’ (or similar
+to envision);
+\item Same page and column but down below: ’the mean local ... and distance increases’
+! ’the mean local ... and distance increase’;
+\item Pag 10 left columns: ’a peak in the mean ... strength reaches at’ ! ’a peak in the
+mean ... strength reaches at’;
+\item Pag 12 right column: ’it sometimes is able to captures ... influencing’ ! ’it is sometime
+able to capture ... influence’.
+\end{itemize}
+
+{\color{res} Thank you for taking the time to point these out. The appropriate changes have been made.}
+
+\end{document}

@@ -228,7 +228,7 @@ Graph the spatial network and plot centralities
 !!
 '''
 
-def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, hide_ticks=True, subplot=False,
+def graph_spatial_network_plot_valued(G, values=False, graph_edges=False, hide_ticks=True, sublpot=False,
   highlight_edges=False, highlight_recent=False, color_points=False, color_bar=False, bounds=False, pbc=True,
   edge_style=None, ss_title=False, alpha=0.2, linewidth=2):
   '''
