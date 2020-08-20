@@ -32,8 +32,8 @@ def pbc_distances(G, pbc=True):
             distance between points i and j
     '''
     coordinates = []
-    for i in G.node:
-        coordinates.append(G.node[i]['coordinate'])
+    for i in G.nodes:
+        coordinates.append(G.nodes[i]['coordinate'])
     coordinates = np.array(coordinates)
     dimensions = G.size
     
@@ -74,9 +74,9 @@ def add_vectorized_eval_edges(G, dimensions=[1, 1], threshold=0.05, beta=-1.5, k
     '''
     coordinates = []
     fitnesses = []
-    for i in G.node:
-        coordinates.append(G.node[i]['coordinate'])
-        fitnesses.append(G.node[i]['fitness'])
+    for i in G.nodes:
+        coordinates.append(G.nodes[i]['coordinate'])
+        fitnesses.append(G.nodes[i]['fitness'])
     
     coordinates = np.array(coordinates)
     fitnesses = np.array(fitnesses)
@@ -363,7 +363,7 @@ def plot_centrality_correlation(G, centrality1=False, centrality2=False):
     print('Gathering fitnesses')
     fitnesses = {}
     for i in range(G.node_count):
-        fitnesses[i] = G.node[i]['fitness']
+        fitnesses[i] = G.nodes[i]['fitness']
     centralities['Fitness'] = fitnesses
     
     print('Plotting graphs')
